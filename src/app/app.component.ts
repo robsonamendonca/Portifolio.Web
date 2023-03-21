@@ -18,17 +18,23 @@ export class AppComponent {
   }
 
   sendMessage() {
-    this.contactService.addContact({
-      Name: this.name,
-      Email: this.email,
-      Subject: this.subject,
-      Message: this.message
-    }).subscribe(() => {
-      this.toastService.success('Mensagem enviada!', 'Sucesso')
-      this.name = ''
-      this.email = ''
-      this.subject = ''
-      this.message = ''
-    })
+    try {
+      this.contactService.addContact({
+        Name: this.name,
+        Email: this.email,
+        Subject: this.subject,
+        Message: this.message
+      }).subscribe(() => {
+        this.toastService.success('Mensagem enviada!', 'Sucesso')
+        this.name = ''
+        this.email = ''
+        this.subject = ''
+        this.message = ''
+      })
+    } catch (error) {
+      this.toastService.error('Houve um erro, tente novamente mais tarde!',"Erro")
+      console.log(error)
+    }
+
   }
 }
